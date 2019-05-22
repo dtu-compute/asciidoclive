@@ -9,3 +9,5 @@
 /client/pubspec.lock
 /client/web/packages
 /server/config.py
+/.idea/
+**/package-lock.json
