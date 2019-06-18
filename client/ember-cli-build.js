@@ -1,15 +1,18 @@
+'use strict';
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                           Copyright 2016 Chuan Ji                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /*jshint node:true*/
 /* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
-var Funnel = require('broccoli-funnel');
-var asciidocToHtml = require('broccoli-asciidoc');
+
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const Funnel = require('broccoli-funnel');
+//const asciidocToHtml = require('broccoli-asciidoc');
 
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
+  let app = new EmberApp(defaults, {
     fingerprint: {
       exclude: [
         'assets/ace-editor',
@@ -41,10 +44,11 @@ module.exports = function(defaults) {
   app.import(
     'bower_components/jquery-ui/jquery-ui.js',
     { type: 'vendor' });
-  app.import(
+/*  app.import(
     'bower_components/dropbox/dropbox.js',
     { type: 'vendor' });
-  app.import(
+*/
+app.import(
     'bower_components/js-cookie/src/js.cookie.js',
     { type: 'vendor' });
   app.import(
@@ -61,13 +65,13 @@ module.exports = function(defaults) {
   // Worker compiler thread, so they must be exported separately. We also need
   // to import them into the main app in case web workers aren't supported.
   var asciidoctor = new Funnel(
-    'bower_components/asciidoctor.js/dist',
+    'node_modules/asciidoctor.js/dist',
     {
       destDir: '/assets/asciidoctor.js',
-      files: ['asciidoctor-all.min.js', 'css/asciidoctor.css']
+      files: ['browser/asciidoctor.js', 'css/asciidoctor.css']
     });
   app.import(
-    'bower_components/asciidoctor.js/dist/asciidoctor-all.js',
+    'node_modules/asciidoctor.js/dist/browser/asciidoctor.js',
     { type: 'vendor' });
 
   var highlightjs = new Funnel(
@@ -101,10 +105,13 @@ module.exports = function(defaults) {
     'bower_components/ace-builds/src-min-noconflict',
     { destDir: '/assets/ace-editor' });
 
+/*
   var asciidocHtmlAssets = new Funnel(
     asciidocToHtml('public/assets'),
     { destDir: '/assets' });
 
+
+ */
   return app.toTree([
     bootstrapFonts,
     asciidoctor,
@@ -113,6 +120,6 @@ module.exports = function(defaults) {
     highlightjsStyles,
     jsBeautify,
     workers,
-    asciidocHtmlAssets
+    //asciidocHtmlAssets
   ]);
 };

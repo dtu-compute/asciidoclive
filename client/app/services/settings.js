@@ -3,7 +3,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 import Ember from 'ember';
-import { localStorageProxy } from 'ember-local-storage-proxy';
+//import { localStorageProxy } from 'ember-local-storage-proxy';
+
+
+const localStorageProxy = (field, def) => { return () => def } ;
 
 export default Ember.Service.extend({
   syncScroll: Ember.computed(localStorageProxy('v1/syncScroll', false)),

@@ -1,14 +1,21 @@
 /* jshint node: true */
 
+'use strict';
+
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     modulePrefix: 'amoya',
-    environment: environment,
+    environment,
+    rootURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
+      },
+      EXTEND_PROTOTYPES: {
+        // Prevent Ember Data from overriding Date.parse.
+        Date: false
       }
     },
     contentSecurityPolicy: {
@@ -58,6 +65,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
 
     ENV.APP.ENABLE_WEB_WORKER = false;
     ENV.APP.ENABLE_DROPBOX = false;

@@ -12,8 +12,9 @@ function asciidoctorJsCompile(ev) {
   var response = JSON.parse(JSON.stringify(ev.data));
 
   var compiledBody;
+  console.dir(Asciidoctor);
   if (response.inline) {
-    compiledBody = Opal.Asciidoctor.$convert(body, Opal.hash2(
+    compiledBody = Asciidoctor().convert(body, Opal.hash2(
       ['attributes'],
       {
         'attributes': ['showtitle']
@@ -21,7 +22,7 @@ function asciidoctorJsCompile(ev) {
   } else {
     var cssPath =
       response.serverUrl + '/assets/asciidoctor.js/css/asciidoctor.css';
-    compiledBody = Opal.Asciidoctor.$convert(body, Opal.hash2(
+    compiledBody = Asciidoctor().convert(body, Opal.hash2(
       ['header_footer', 'attributes'],
       {
         'header_footer': true,
@@ -51,7 +52,7 @@ if (isInWebWorker) {
   // For js-beautify.
   global = {};
   self.importScripts(
-    '/assets/asciidoctor.js/asciidoctor-all.min.js',
+    '/assets/asciidoctor.js/browser/asciidoctor.js',
     '/assets/js-beautify/beautify-html.js',
     '/assets/highlightjs/highlight.pack.min.js');
   self.addEventListener('message', asciidoctorJsCompile);

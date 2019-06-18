@@ -5,9 +5,13 @@
 *.precompiled.js
 /build/
 /client/build
+/client/dist
+**/node_modules/
+**/bower_components/
 /client/packages
 /client/pubspec.lock
 /client/web/packages
 /server/config.py
 /.idea/
+**/tmp/
 **/package-lock.json
